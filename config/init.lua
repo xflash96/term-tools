@@ -114,7 +114,7 @@ vim.fn.mkdir(backup_dir, "p", "0o700")
 vim.opt.backupdir = backup_dir
 vim.opt.backup = true
 
-vim.opt.spellfile = vim.env.TERM_TOOLS .. '/config/spell.en.utf-8.add'
+vim.opt.spellfile = '~/.term-tools/config/spell.en.utf-8.add'
 vim.opt.spelllang = 'en_us'
 
 -- Use njnja-build as 'Make' program by default
@@ -724,23 +724,19 @@ wk = require("which-key")
 --vim.keymap.set('n', 'gn', '<Nop>')
 --vim.keymap.set('n', 'gN', '<Nop>')
 
-wk.register({
- t = { name = "[T]est ..", },
- s = { name = "[S]earch ..", },
- f = { name = "[F]ix ..", },
-}, { prefix = "<leader>" })
+wk.add({
+ {"<leader>t",  desc = "[T]est ..", },
+ {"<leader>s",  desc = "[S]earch ..", },
+ {"<leader>f",  desc = "[F]ix ..", },
+ {"gn", hidden = true, },
+})
 
-wk.register({
-  g = {
-    n = "which_key_ignore"
-  }
-}, { prefix = ""})
 
 -- Edit this file
 vim.keymap.set(
   'n', '<leader>l',
   function()
-    vim.cmd('e ' .. vim.env.TERM_TOOLS .. '/config/init.lua')
+    vim.cmd('e ' .. '~/.term-tools/config/init.lua')
   end,
   { desc = 'Edit [L]ua configuration' }
 )

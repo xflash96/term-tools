@@ -1,15 +1,23 @@
+[ -e /etc/profile ] && emulate sh -c 'source /etc/profile'
+[ -e ~/.nvm ] && export NVM_DIR=~/.nvm && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+
 source ~/.term-tools/config/shrc.sh
 
-export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+pathprepend() {
+    if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
+        PATH="$1${PATH:+":$PATH"}"
+    fi
+}
+pathprepend "/usr/local/cuda/bin"
+pathprepend "$HOME/.local/bin"
+# export PATH=/usr/local/bin:/usr/local/cuda/bin:/usr/bin:/bin:/usr/sbin:/sbin
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    export LIBCPP_DIR="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1"
+    true
 else
-    # Needed for LLDB
-    export PYTHONPATH="/usr/lib/llvm-9/lib/python3.7/site-packages/"
-    export LIBCPP_DIR="/usr/lib/llvm-9/include/c++/v1"
-    export CC=clang
-    export CXX=clang++
+    true
 fi
 
 alias compile_commands='ninja -t compdb $(grep ^rule build.ninja rules.ninja | awk "{print $2}") | sed "s@clang++ @clang++ $LIBCPP_DIR @" > compile_commands.json'

@@ -17,9 +17,13 @@ if [ -e ~/.vimrc ]; then
 fi
 
 # Install dotfiles (this will fail it already exists so we are safe)
-ln -s $TERM_TOOLS/config/vimrc ~/.vimrc
+ln -s $TERM_TOOLS/config/vimrc-minimal ~/.vimrc
+mkdir -p ~/.config/nvim \
+    && ln -s $TERM_TOOLS/config/init.lua ~/.config/nvim/init.lua
 
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+nvim --headless "+Lazy! sync" +qa
 
-vim +PlugInstall +qall
+# Skip the vim part
+# curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+#     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+# vim +PlugInstall +qall

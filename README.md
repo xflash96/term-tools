@@ -1,10 +1,10 @@
 # term-tools
 
 <p align="center">
-   <img src="https://github.com/wjakob/term-tools/raw/master/screenshot.png" alt="screenshot" width="400"/>
+   <img src="https://github.com/xflash96/term-tools/raw/master/screenshot.png" alt="screenshot" width="400"/>
 </p>
 
-Wenzel's terminal setup. Contains nice default settings for
+Po-Wei's terminal setup (forked from Wenzel). Contains nice default settings for
 
 * vim
 * tmux
@@ -52,7 +52,7 @@ How to install
 
 * Clone this repository and run the installer:
 ```
-git clone https://github.com/wjakob/term-tools.git ~/.term-tools
+git clone https://github.com/xflash96/term-tools.git ~/.term-tools
 cd ~/.term-tools
 ./install.sh
 ```
