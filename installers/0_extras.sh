@@ -5,8 +5,8 @@ if command -v apt-get >/dev/null 2>&1; then
     sudo apt-get install -y vim git fzf cmake zsh less tmux curl wget fd-find ripgrep
     sudo apt-get install -y imagemagick source-highlight ninja-build
 
-    sudo apt-get install -y libc++-15-dev libc++abi-15-dev
     curl -sL https://apt.llvm.org/llvm.sh | sudo -E bash /dev/stdin 15
+    sudo apt-get install -y libc++-15-dev libc++abi-15-dev
 
     NVIM_BIN=nvim-linux64.tar.gz 
 elif command -v brew >/dev/null 2>&1; then
