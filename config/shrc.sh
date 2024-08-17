@@ -141,7 +141,6 @@ alias pdb='python3 -u -m pdb -c continue'
 alias pytest='python3 -m pytest'
 alias octave='octave --no-gui-libs'
 alias vi='nvim'
-alias vim='nvim'
 
 # zsh-specific configuration
 if [ "$ZSH_VERSION" ]; then
