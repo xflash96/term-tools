@@ -56,6 +56,9 @@ vim.opt.wildmode = 'longest:list,full'
 -- don't show the mode (the statusline already does so)
 vim.opt.showmode = false
 
+-- don't fix the eol
+vim.opt.fixeol = false
+
 -------------------------------------------------------------------------------
 -- Indentation-related options
 -------------------------------------------------------------------------------
