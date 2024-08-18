@@ -1,3 +1,5 @@
+autoload -U +X bashcompinit && bashcompinit
+autoload -U +X compinit && compinit
 [ -e /etc/profile ] && emulate sh -c 'source /etc/profile'
 [ -e ~/.nvm ] && export NVM_DIR=~/.nvm && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
