@@ -94,7 +94,7 @@ export FZF_DEFAULT_OPTS="--extended --bind=pgup:up,pgdn:down "
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # Locale
-if locale -a | grep ^en_US.UTF-8; then
+if locale -a | grep -q ^en_US.UTF-8; then
     export LC_ALL=en_US.UTF-8
     export LANG=en_US.UTF-8
 else
