@@ -19,12 +19,17 @@ fi
 sudo chown -R $USER $HOME/.local $HOME/.config
 
 # fix the missing ensurepip in ubuntu python3.8 required by mason
-python3_subver=$(python3 -c 'import sys; print(sys.version_info[1])')
-if [ $python3_subver -eq 8 ] && ! python3.8 -m ensurepip --version; then
-    curl -fL http://ports.ubuntu.com/pool/universe/p/python3.8/python3.8-venv_3.8.10-0ubuntu1~20.04.11_arm64.deb -o ensurepip.deb
-    ar x ensurepip.deb data.tar.xz
-    tar xf data.tar.xz && sudo mv ./usr/lib/python3.8/ensurepip /usr/lib/python3.8/ensurepip
-    rm -rf ensurepip.deb data.tar.xz ./usr
+# later version requries bootstrap so plz apt install
+python3_verbin=python3.$(python3 -c 'import sys; print(sys.version_info[1])')
+if ! python3 -m ensurepip --version; then
+    if [ $python3_verbin -ne "python3.8" ]; then
+        echo "simply do apt install $python3_verbin-venv"
+    else
+        apt-get download $python3_verbin-venv
+        mv $python3_verbin-venv* ensurepip.deb
+        dpkg -x ensurepip.deb . && sudo mv ./usr/lib/$python3_verbin/ensurepip /usr/lib/$python3_verbin/
+        rm -rf ensurepip.deb ./usr
+    fi
 fi
 
 # Install dotfiles (this will fail it already exists so we are safe)
