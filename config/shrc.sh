@@ -182,6 +182,9 @@ if [ "$ZSH_VERSION" ]; then
         bindkey -M $mode "^[[6~"          history-beginning-search-forward-end  # Ctrl-K
     done
 
+    # do not ask if rm * a single file
+    setopt rmstarsilent
+
     # ls after every cd
     function chpwd() {
         emulate -L zsh
