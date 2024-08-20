@@ -249,11 +249,36 @@ if [ "$ZSH_VERSION" ]; then
     # Share history between multiple terminals
     setopt inc_append_history
     setopt share_history
+    setopt hist_ignore_dups
+    setopt hist_ignore_space
 
     # Completions
     zstyle :compinstall filename '~/.zshrc'
     autoload -Uz compinit
     compinit -d $TERM_TOOLS/.zcompdump-$ZSH_VERSION
+
+    # znap
+    ZNAP_HOME=$TERM_TOOLS/.znap
+    if [[ ! -f $ZNAP_HOME/zsh-snap/znap.zsh ]]; then
+        mkdir -p $ZNAP_HOME
+        git clone --depth 1 -- https://github.com/marlonrichert/zsh-snap.git $ZNAP_HOME/zsh-snap
+    fi
+    source $ZNAP_HOME/zsh-snap/znap.zsh
+    zstyle ':znap:*' repos-dir $ZNAP_HOME
+    zstyle ':znap:*:*' git-maintenance off
+    znap source zsh-users/zsh-completions
+    znap source zsh-users/zsh-autosuggestions
+    znap source zsh-users/zsh-syntax-highlighting
+    ZSH_AUTOSUGGEST_USE_ASYNC=true
+
+    # znap source marlonrichert/zsh-autocomplete
+    zstyle ':completion:*' file-sort date
+    zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+    zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
+    zstyle ':completion:*:paths' path-completion yes
+    zstyle ':completion:*:processes' command 'ps -afu $USER'
+    # zstyle ':autocomplete:*' min-input 1
+    # zstyle ':autocomplete:*' insert-unambiguous yes
 
     # Set up a table with color codes (from oh-my-zsh's spectrum.zsh)
     typeset -AHg FX FG BG
