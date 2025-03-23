@@ -38,6 +38,7 @@ mkdir -p ~/.config/nvim \
     && ln -s $TERM_TOOLS/config/init.lua ~/.config/nvim/init.lua
 
 nvim --headless "+Lazy! sync" +qa
+#nvim --headless ":TSUpdate" +qa
 
 # Skip the vim part
 # curl -fLo ~/.vim/autoload/plug.vim --create-dirs \

@@ -460,6 +460,9 @@ require("lazy").setup({
 
   { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
+    opts = {
+      inlay_hints = { enabled = true },
+    },
     dependencies = {
       -- Automatically install LSPs and related tools to stdpath for neovim
       'williamboman/mason.nvim',
@@ -813,3 +816,12 @@ end, {
 })
 
 vim.keymap.set('n', '<leader>m', "<cmd>Make<cr>", { desc='[M]ake' })
+vim.keymap.set('n', '<leader>H',
+    function()
+      if vim.lsp.inlay_hint.is_enabled() then
+        vim.lsp.inlay_hint.enable(false)
+      else
+        vim.lsp.inlay_hint.enable(true)
+      end
+    end
+)

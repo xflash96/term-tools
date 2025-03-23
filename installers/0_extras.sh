@@ -12,7 +12,7 @@ if command -v apt-get >/dev/null 2>&1; then
     FZF_ARCH=linux_amd64
 elif command -v brew >/dev/null 2>&1; then
     brew install vim git fzf cmake zsh less lesspipe tmux curl wget fd ripgrep \
-        coreutils ripgrep source-highlight
+        coreutils ripgrep source-highlight luarocks imagemagick
     brew install llvm
     NVIM_ARCH=macos-$(uname -m)
     FZF_ARCH=darwin_amd64

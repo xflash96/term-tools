@@ -1,8 +1,11 @@
+# zmodload zsh/zprof
 autoload -U +X bashcompinit && bashcompinit
 autoload -U +X compinit && compinit
 [ -e /etc/profile ] && emulate sh -c 'source /etc/profile'
-[ -e ~/.nvm ] && export NVM_DIR=~/.nvm && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+# We still need the following line since nvm.sh will search it
+# [ -e ~/.nvm ] && export NVM_DIR=~/.nvm && \. "$NVM_DIR/nvm.sh"
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
 
 source ~/.term-tools/config/shrc.sh
@@ -23,3 +26,4 @@ else
 fi
 
 alias compile_commands='ninja -t compdb $(grep ^rule build.ninja rules.ninja | awk "{print $2}") | sed "s@clang++ @clang++ $LIBCPP_DIR @" > compile_commands.json'
+# zprof

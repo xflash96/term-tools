@@ -15,6 +15,10 @@ export SESSION_MANAGER=
 
 # vim by default
 export EDITOR="nvim"
+export MANPAGER='nvim +Man!'
+export PAGER="nvim +Man!"
+# export MANSECT='0p:3p:1p:3:2:1:4:5:6:7:8:9:l'#:n #tcl
+
 
 # Store extensive history
 export SAVEHIST=10000
@@ -147,10 +151,12 @@ alias pdb='python3 -u -m pdb -c continue'
 alias pytest='python3 -m pytest'
 alias octave='octave --no-gui-libs'
 alias vi='nvim'
+alias dc='docker compose'
 
 # zsh-specific configuration
 if [ "$ZSH_VERSION" ]; then
     export HISTFILE=$TERM_TOOLS/.zsh-history
+    setopt HIST_FIND_NO_DUPS
 
     autoload -U history-search-end
     zle -N history-beginning-search-backward-end history-search-end
@@ -174,11 +180,11 @@ if [ "$ZSH_VERSION" ]; then
         bindkey -M $mode $terminfo[kdch1] delete-char # Delete
         bindkey -M $mode '\e[3~'          delete-char
 
-        bindkey -M $mode $terminfo[kcuu1] history-beginning-search-backward-end # Up
-        bindkey -M $mode "^[[A"           history-beginning-search-backward-end # Up
+        bindkey -M $mode $terminfo[kcuu1] up-line-or-history # history-beginning-search-backward-end # Up
+        bindkey -M $mode "^[[A"           up-line-or-history # history-beginning-search-backward-end # Up
+        bindkey -M $mode $terminfo[kcud1] down-line-or-history # history-beginning-search-forward-end  # Down
+        bindkey -M $mode "^[[B"           down-line-or-history # history-beginning-search-forward-end  # Down
         bindkey -M $mode "^[[5~"          history-beginning-search-backward-end # Ctrl-J
-        bindkey -M $mode $terminfo[kcud1] history-beginning-search-forward-end  # Down
-        bindkey -M $mode "^[[B"           history-beginning-search-forward-end  # Down
         bindkey -M $mode "^[[6~"          history-beginning-search-forward-end  # Ctrl-K
     done
 
@@ -250,10 +256,13 @@ if [ "$ZSH_VERSION" ]; then
     bindkey -M vicmd V edit-command-line
 
     # Share history between multiple terminals
+    setopt extended_history
     setopt inc_append_history
+    #setopt hist_expire_dups_first
+    #setopt hist_ignore_dups
+    #setopt hist_ignore_space
+    setopt hist_find_no_dups
     setopt share_history
-    setopt hist_ignore_dups
-    setopt hist_ignore_space
 
     # Completions
     zstyle :compinstall filename '~/.zshrc'
@@ -272,7 +281,11 @@ if [ "$ZSH_VERSION" ]; then
     znap source zsh-users/zsh-completions
     znap source zsh-users/zsh-autosuggestions
     znap source zsh-users/zsh-syntax-highlighting
+    NVM_LAZY_LOAD=true
+    NVM_LAZY_INSTALL=true
+    znap source xflash96/zsh-nvm
     ZSH_AUTOSUGGEST_USE_ASYNC=true
+    ZSH_AUTOSUGGEST_STRATEGY=(completion history)
 
     # znap source marlonrichert/zsh-autocomplete
     zstyle ':completion:*' file-sort date
