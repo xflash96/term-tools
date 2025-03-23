@@ -127,16 +127,24 @@ vim.opt.makeprg='ninja'
 vim.opt.clipboard = 'unnamedplus'
 
 if vim.env.SSH_CONNECTION ~= nil or vim.env.PR_SSH_ALIAS ~= nil then
+  local function local_paste()
+  return {
+    vim.split(vim.fn.getreg(''), '\n'),
+    vim.fn.getregtype(''),
+  }
+  end
   vim.g.clipboard = {
     name = 'OSC 52',
     copy = {
       ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
       ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
     },
-    -- paste = {
-    --   ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
-    --   ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
-    -- },
+    paste = {
+      ['+'] = local_paste,
+      ['*'] = local_paste,
+      -- ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
+      -- ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
+    },
   }
 end
 
