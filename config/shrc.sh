@@ -152,6 +152,7 @@ alias pytest='python3 -m pytest'
 alias octave='octave --no-gui-libs'
 alias vi='nvim'
 alias dc='docker compose'
+alias hist='fc -l -n -t "%F %T"'
 
 # zsh-specific configuration
 if [ "$ZSH_VERSION" ]; then
@@ -255,14 +256,17 @@ if [ "$ZSH_VERSION" ]; then
     zle -N edit-command-line
     bindkey -M vicmd V edit-command-line
 
+    # https://unix.stackexchange.com/questions/669971/zsh-can-i-have-a-combined-history-for-all-of-my-shells
     # Share history between multiple terminals
     setopt extended_history
-    setopt inc_append_history
+    setopt inc_append_history # inc_append to history immediately but not disrupt current session / read history
     #setopt hist_expire_dups_first
     #setopt hist_ignore_dups
     #setopt hist_ignore_space
     setopt hist_find_no_dups
-    setopt share_history
+    #setopt share_history
+    # to reload history, use
+    #   $fc -RI
 
     # Completions
     zstyle :compinstall filename '~/.zshrc'

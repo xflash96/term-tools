@@ -739,6 +739,15 @@ require("lazy").setup({
       { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
     },
   },
+  {
+    'ggml-org/llama.vim',
+    enabled = vim.env.NVIM_LLAMA_INFILL ~= nil,
+    init = function()
+      vim.g.llama_config = {
+        endpoint = vim.env.NVIM_LLAMA_INFILL -- or  'http://localhost:8012/infill'
+      }
+    end,
+  }
   --{
   --  'github/copilot.vim'
   --}

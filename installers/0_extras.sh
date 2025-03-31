@@ -8,7 +8,7 @@ if command -v apt-get >/dev/null 2>&1; then
     sudo apt-get install -y libc++-15-dev libc++abi-15-dev
     curl -sL https://apt.llvm.org/llvm.sh | sudo -E bash /dev/stdin 15
 
-    NVIM_ARCH=linux64
+    NVIM_ARCH=x86_64
     FZF_ARCH=linux_amd64
 elif command -v brew >/dev/null 2>&1; then
     brew install vim git fzf cmake zsh less lesspipe tmux curl wget fd ripgrep \
@@ -29,9 +29,10 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash 
     && nvm alias default $NODE_VERSION \
     && nvm use default
 
-NVIM_VER=0.10.1
+NVIM_VER=0.11.0
 NVIM_BIN=nvim-$NVIM_ARCH.tar.gz
 mkdir -p ~/.local
+# for old glibc, use https://github.com/neovim/neovim-releases/releases/download/v0.11.0/nvim-linux-x86_64.tar.gz
 curl -fLO https://github.com/neovim/neovim/releases/download/v$NVIM_VER/$NVIM_BIN \
     && tar xf $NVIM_BIN --strip 1 -C ~/.local \
     && rm $NVIM_BIN

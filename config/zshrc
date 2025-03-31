@@ -27,3 +27,4 @@ fi
 
 alias compile_commands='ninja -t compdb $(grep ^rule build.ninja rules.ninja | awk "{print $2}") | sed "s@clang++ @clang++ $LIBCPP_DIR @" > compile_commands.json'
 # zprof
+[[ -n $SHELL_VENV_DEFAULT_PATH ]] && [[ -d $SHELL_VENV_DEFAULT_PATH ]] && source "$SHELL_VENV_DEFAULT_PATH/bin/activate"
