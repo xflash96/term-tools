@@ -747,6 +747,16 @@ require("lazy").setup({
         endpoint = vim.env.NVIM_LLAMA_INFILL -- or  'http://localhost:8012/infill'
       }
     end,
+    config = function()
+      vim.api.nvim_call_function("llama#disable", {})
+      vim.keymap.set(
+        'n', '<leader>a',
+        function()
+          vim.api.nvim_call_function("llama#toggle", {})
+        end,
+        { desc = 'Toggle Llam[a] completion' }
+      )
+    end,
   }
   --{
   --  'github/copilot.vim'
